@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd next-catalogo && npm run build",
-  "installCommand": "cd next-catalogo && npm ci",
-  "outputDirectory": "next-catalogo/.next"
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": ".next"
 }
