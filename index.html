@@ -46,6 +46,16 @@
       text-shadow: 0 2px 10px rgba(0,0,0,0.8);
     }
 
+    .header-logo {
+      display: block;
+      max-width: 300px;
+      height: auto;
+      margin: 0 auto 20px;
+      filter: drop-shadow(0 2px 10px rgba(0,0,0,0.8));
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
     header p {
       margin: 0 0 20px;
       font-size: 1.1rem;
@@ -223,6 +233,26 @@
       margin-top: auto;
     }
 
+    .buy-button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #d4af37;
+      color: #0a0a0a;
+      border: none;
+      border-radius: 4px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .buy-button:hover {
+      background: #fff;
+      color: #d4af37;
+      transform: scale(1.05);
+    }
+
     .no-results {
       max-width: 1200px;
       margin: 60px auto;
@@ -247,6 +277,34 @@
       color: #888;
       font-size: 14px;
       letter-spacing: 1px;
+    }
+
+    #backToTop {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 50px;
+      height: 50px;
+      background: rgba(212, 175, 55, 0.7);
+      color: #0a0a0a;
+      border: none;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    #backToTop.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #backToTop:hover {
+      background: #d4af37;
+      transform: scale(1.1);
     }
 
     footer a, .no-results a {
@@ -418,13 +476,25 @@
       animation: fadeInUp 0.8s ease 0.2s forwards;
     }
 
+    @media (max-width: 768px) {
+      .header-logo {
+        max-width: 250px;
+      }
+      #backToTop {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+    }
+
   </style>
 </head>
 <body>
 
     <header>
-    <h1>L'ESSENCE</h1>
-    <p>Catálogo digital de productos</p>
+    <img src="logo.png" alt="L'Essence Perfumería Original Since 2025" class="header-logo">
     <div class="social-links">
       <a href="https://www.instagram.com/perfumesoriginalespalm/" target="_blank" class="social-link" aria-label="Síguenos en Instagram">
         <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
@@ -433,11 +503,11 @@
           <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
         </svg>
       </a>
-      <a href="https://wa.me/1234567890" target="_blank" class="social-link" aria-label="Contáctanos por WhatsApp">
+      <a href="https://wa.me/573117980861" target="_blank" class="social-link" aria-label="Contáctanos por WhatsApp">
         <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
         </svg>
-        <span class="social-text">+1 234 567 890</span>
+        <span class="social-text">+57 311 798 0861</span>
       </a>
     </div>
   </header>
@@ -461,12 +531,14 @@
   <section class="catalog" id="catalog"></section>
   <div class="no-results" id="noResults">
     <p>No se encontraron productos con esos filtros.</p>
-    <p class="contact-prompt">¿No encuentras lo que buscas? Contáctanos en nuestro <a href="https://wa.me/1234567890" target="_blank">WhatsApp</a> o <a href="https://www.instagram.com/perfumesoriginalespalm/" target="_blank">Instagram</a>.</p>
+    <p class="contact-prompt">¿No encuentras lo que buscas? Contáctanos en nuestro <a href="https://wa.me/573117980861" target="_blank">WhatsApp</a> o <a href="https://www.instagram.com/perfumesoriginalespalm/" target="_blank">Instagram</a>.</p>
   </div>
 
   <footer>
-    <p>¿No encuentras algún perfume? Contáctanos en nuestro <a href="https://wa.me/1234567890" target="_blank">WhatsApp</a> o <a href="https://www.instagram.com/perfumesoriginalespalm/" target="_blank">Instagram</a>.</p>
+    <p>¿No encuentras algún perfume? Contáctanos en nuestro <a href="https://wa.me/573117980861" target="_blank">WhatsApp</a> o <a href="https://www.instagram.com/perfumesoriginalespalm/" target="_blank">Instagram</a>.</p>
   </footer>
+
+  <button id="backToTop" aria-label="Volver arriba">↑</button>
 
   <script>
     const products = [
@@ -809,6 +881,7 @@
             <div class="price">
               ${formatPrice(product.price)}
             </div>
+            <button class="buy-button" onclick="window.open('https://wa.me/573117980861?text=Estoy interesado en ${encodeURIComponent(product.name)}', '_blank')">Preguntar</button>
           `;
           catalogEl.appendChild(card);
           observer.observe(card);
@@ -867,6 +940,20 @@
 
       renderProducts(filtered);
     }
+
+    // Back to top functionality
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
     populateBrands();
     renderProducts(products);
