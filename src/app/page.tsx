@@ -62,6 +62,7 @@ export default function Home() {
   const [brand, setBrand] = useState("all");
   const [sort, setSort] = useState<SortOption>("default");
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [showHeader, setShowHeader] = useState(true);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
 
   const brands = useMemo(
@@ -102,10 +103,22 @@ export default function Home() {
   }, [search, brand, sort]);
 
   useEffect(() => {
-    const onScroll = () => setShowBackToTop(window.scrollY > 300);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  let lastY = 0;
+  const onScroll = () => {
+    const y = window.scrollY;
+    setShowBackToTop(y > 300);
+    if (window.innerWidth < 768) {
+      if (y > lastY && y > 100) {
+        setShowHeader(false);
+      } else {
+        setShowHeader(true);
+      }
+    }
+    lastY = y;
+  };
+  window.addEventListener("scroll", onScroll);
+  return () => window.removeEventListener("scroll", onScroll);
+}, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -185,7 +198,8 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="sticky top-0 z-30 border-b border-white/10 bg-[#0a0a0a]/80 py-5 backdrop-blur-md">
+      <div className={`sticky top-0 z-30 border-b border-white/10 bg-[#0a0a0a]/80 py-5 backdrop-blur-md transition-transform transform ${showHeader ? 'translate-y-0' : '-translate-y-full'} duration-300 ease-in-out`}>
+
         <section className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-4 px-5 md:grid-cols-[2fr_1fr_1fr]">
           <input
             type="text"
